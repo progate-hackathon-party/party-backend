@@ -3,3 +3,5 @@ pynamodb
 python-dotenv
 boto3
 PyJWT
+
+#pip install -r requirements.txt
