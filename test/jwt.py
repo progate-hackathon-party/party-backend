@@ -49,6 +49,7 @@ parameter["usr"]=os.environ.get("USR")
 parameter["password"]=os.environ.get("PASSWORD")
 parameter["secret_hash"]=get_secret_hash(parameter["usr"], parameter["user_pool_client_id"], os.environ.get("CLIENT_SECRET"))
 
+print(parameter)
 result = cognito_auth(parameter)
-print(result["AuthenticationResult"]["IdToken"])
+print("Bearer "+result["AuthenticationResult"]["IdToken"])
 sys.stderr.write("*** 終了 ***\n")
