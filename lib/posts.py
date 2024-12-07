@@ -15,7 +15,7 @@ def get_post_by_id(post_id: str):
             "id": post.id,
             "user_id": post.user_id,
             "content": post.content,
-            "position": post.position,
+            "location": post.location,
             "image_url": post.image_url
         }
     except:
