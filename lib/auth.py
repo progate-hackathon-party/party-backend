@@ -11,7 +11,7 @@ api_key_header = APIKeyHeader(name="Authorization", auto_error=True)
 
 def auth_jwt(auth_header: str = Depends(api_key_header)):
     try:
-        region = "ap-northeast-1"
+        region = os.environ.get("AWS_DEFAULT_REGION")
         user_pool_id = os.environ.get("USER_POOL_ID")
         client_id = os.environ.get("USER_POOL_CLIENT_ID")
         
