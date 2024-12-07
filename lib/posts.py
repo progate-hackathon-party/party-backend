@@ -1,6 +1,7 @@
 import uuid
 from fastapi import HTTPException
 from lib.db import PostModel,Post
+from index import PostLocation
 
 def get_posts():
     try:
@@ -21,6 +22,19 @@ def get_post_by_id(post_id: str):
         }
     except:
         return {"Error":"Post not found"}
+
+def get_posts_by_location(location:PostLocation):
+    try:
+        results = []
+
+        for item in PostModel.scan():
+            if location.lat[0] <= item.lat <= location.lat[1] and location.lon[0] <= item.lon <= location.lon[1]:
+                results.append(item)
+
+        return {"posts": results}
+    except:
+        return {"Error":"Posts not found"}
+
 
 def create_post(user_id:str,post:Post):
     try:

@@ -1,4 +1,3 @@
-
 import	sys
 import	os
 import	boto3
@@ -19,7 +18,6 @@ def cognito_auth(parameter):
 			AuthParameters = {
 				"USERNAME": parameter["usr"],
 				"PASSWORD": parameter["password"],
-				"SECRET_HASH": parameter["secret_hash"]
 			}
 		)
 
@@ -32,11 +30,6 @@ def cognito_auth(parameter):
 		sys.stderr.write("*** error ***\n")
 		sys.stderr.write(str(ee) + "\n")
 		return None
-	
-def get_secret_hash(username, client_id, client_secret):
-    message = username + client_id
-    dig = hmac.new(str(client_secret).encode('utf-8'), msg = str(message).encode('utf-8'), digestmod = hashlib.sha256).digest()
-    return base64.b64encode(dig).decode()
 
 sys.stderr.write("*** 開始 ***\n")
 dotenv_path = '.env'
@@ -47,9 +40,9 @@ parameter["user_pool_id"]=os.environ.get("USER_POOL_ID")
 parameter["user_pool_client_id"]=os.environ.get("USER_POOL_CLIENT_ID")
 parameter["usr"]=os.environ.get("USR")
 parameter["password"]=os.environ.get("PASSWORD")
-parameter["secret_hash"]=get_secret_hash(parameter["usr"], parameter["user_pool_client_id"], os.environ.get("CLIENT_SECRET"))
 
 print(parameter)
 result = cognito_auth(parameter)
+print(result)
 print("Bearer "+result["AuthenticationResult"]["IdToken"])
 sys.stderr.write("*** 終了 ***\n")
