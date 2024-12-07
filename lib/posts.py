@@ -1,3 +1,4 @@
+import uuid
 from fastapi import HTTPException
 from lib.db import PostModel,Post
 
@@ -24,9 +25,9 @@ def get_post_by_id(post_id: str):
 def create_post(user_id:str,post:Post):
     try:
         #ここを実装
-        uuid = uuid.uuid1()
+        uuid_string = uuid.uuid1()
 
-        post = Post(id=uuid, user_id=user_id, content=post.content, location=post.location, image_url=post.image_url)
+        post = PostModel(id=str(uuid_string), user_id=user_id, content=post.content, location=post.location, image_url=post.image_url)
         post.save()
         #成功したかしてないかを返す
         #コンテント、位置情報、画像のURL
