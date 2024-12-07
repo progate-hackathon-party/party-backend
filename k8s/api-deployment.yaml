@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: party-api-app
+  labels:
+    app: party-api-app
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: party-api-app
+  template:
+    metadata:
+      labels:
+        app: party-api-app
+    spec:
+      containers:
+      - name: party-api-app
+        image: public.ecr.aws/w0l1g3z0/progate-hackthon-party/api:latest
+        ports:
+        - containerPort: 3000
