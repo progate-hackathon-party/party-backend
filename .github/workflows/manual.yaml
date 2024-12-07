@@ -38,5 +38,5 @@ jobs:
           context: .
           push: true
           tags: |
-            public.ecr.aws/d7p2r8s3/${{ env.IMAGE_NAME }}:latest
-            public.ecr.aws/d7p2r8s3/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tags }}
+            public.ecr.aws/w0l1g3z0/${{ env.IMAGE_NAME }}:latest
+            public.ecr.aws/w0l1g3z0/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tags }}
