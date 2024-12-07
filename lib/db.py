@@ -27,12 +27,12 @@ class PostModel(Model):
     id = UnicodeAttribute(hash_key=True)
     user_id = UnicodeAttribute(null=False)
     content = UnicodeAttribute(null=False)
-    position = UnicodeAttribute(null=False)
+    location = UnicodeAttribute(null=False)
     image_url = UnicodeAttribute(null=False)
 
 class Post(BaseModel):
     id: Optional[str] = None
-    user_id: str
+    user_id: Optional[str] = None
     content: str
-    position: str
+    location: str
     image_url: str

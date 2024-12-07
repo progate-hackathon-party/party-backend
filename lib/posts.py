@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from lib.db import PostModel,Post
 
 def get_posts():
@@ -20,18 +21,29 @@ def get_post_by_id(post_id: str):
     except:
         return {"Error":"Post not found"}
 
-def create_post():
+def create_post(user_id:str,post:Post):
     try:
-        post = Post(id="1", user_id="", content="", position="", image_url="")
+        #ここを実装
+        uuid = uuid.uuid1()
+
+        post = Post(id=uuid, user_id=user_id, content=post.content, location=post.location, image_url=post.image_url)
         post.save()
+        #成功したかしてないかを返す
+        #コンテント、位置情報、画像のURL
         return {"message": "Post created successfully"}
     except:
         return {"Error":"Post not created"}
 
-def delete_post():
+def delete_post(user_id:str,post_id:str):
     try:
-        post = PostModel.get("1")
-        post.delete()
+        #ここを実装
+        post = PostModel.get(post_id)
+
+        if post.user_id == user_id:
+            post.delete()
+        else :
+            raise HTTPException (status_code=401,detail = "Unauthorized")
+        #消そうとしているユーザーが投稿の持ち主かどうか
         return {"message": "Post deleted successfully"}
     except:
         return {"Error":"Post not deleted"}

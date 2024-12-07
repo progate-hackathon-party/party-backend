@@ -1,5 +1,6 @@
 from fastapi import Depends, FastAPI
 import uvicorn
+from lib.db import Post
 from lib.users import get_user, get_user_by_id, create_user, update_user
 from lib.posts import get_posts, get_post_by_id, create_post, delete_post
 from lib.auth import auth_jwt
@@ -50,15 +51,15 @@ async def root(post_id: str,decoded_token: dict = Depends(auth_jwt)):
     return result
 
 @app.post("/posts")
-async def root(decoded_token: dict = Depends(auth_jwt)):
+async def root( post: Post,decoded_token: dict = Depends(auth_jwt)):
     user_id = decoded_token.get("sub")
-    result = create_post()
+    result = create_post(user_id,post)
     return result
 
-@app.delete("/posts")
-async def root(decoded_token: dict = Depends(auth_jwt)):
+@app.delete("/posts/{post_id}")
+async def root(post_id: str,decoded_token: dict = Depends(auth_jwt)):
     user_id = decoded_token.get("sub")
-    result = delete_post()
+    result = delete_post(user_id,post_id)
     return result
 
 
