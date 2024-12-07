@@ -1,0 +1,37 @@
+name: Build and Publish Docker
+
+on:
+  workflow_dispatch:
+    inputs:
+      tags:
+        required: true
+        description: Docker image tags
+
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: progate-hackthon-party/api
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: Build and push
+        uses: pahud/ecr-public-action@8cd826db40befb59b0cd0b60b22a7ba72d06a7f7
+        with:
+          dockerfile: Dockerfile
+          context: .
+          push: true
+          tags: |
+            public.ecr.aws/d7p2r8s3/${{ env.IMAGE_NAME }}:latest
+            public.ecr.aws/d7p2r8s3/${{ env.IMAGE_NAME }}:${{ github.event.inputs.tags }}
