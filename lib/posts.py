@@ -46,7 +46,7 @@ def create_post(user_id:str,post:Post):
         #ここを実装
         uuid_string = uuid.uuid1()
 
-        post = PostModel(id=str(uuid_string), user_id=user_id, content=post.content, location=post.location, image_url=post.image_url)
+        post = PostModel(id=str(uuid_string), user_id=user_id, name=post.name ,content=post.content, lat=post.lat,lon=post.lon, image_url=post.image_url)
         post.save()
         #成功したかしてないかを返す
         #コンテント、位置情報、画像のURL

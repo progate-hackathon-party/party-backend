@@ -25,7 +25,7 @@ class PostModel(Model):
     user_id = UnicodeAttribute(null=False)
     name = UnicodeAttribute(null=False)
     content = UnicodeAttribute(null=False)
-    lat = NumberAttribute(range_key=True)  # 緯度
+    lat = NumberAttribute()  # 緯度
     lon = NumberAttribute()
     image_url = UnicodeAttribute(null=False)
 
