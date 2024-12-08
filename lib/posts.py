@@ -1,7 +1,8 @@
+from typing import List
 import uuid
 from fastapi import HTTPException
+from pydantic import BaseModel
 from lib.db import PostModel,Post
-from index import PostLocation
 
 def get_posts():
     try:
@@ -23,6 +24,10 @@ def get_post_by_id(post_id: str):
     except:
         return {"Error":"Post not found"}
 
+class PostLocation(BaseModel):
+    lat: List[float]
+    lon: List[float]
+    
 def get_posts_by_location(location:PostLocation):
     try:
         results = []
