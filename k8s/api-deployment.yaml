@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: party-api-app
-        image: public.ecr.aws/w0l1g3z0/progate-hackthon-party/api:latest
+        image: public.ecr.aws/w0l1g3z0/progate-hackthon-party/api:0.0.3
         ports:
         - containerPort: 3000
