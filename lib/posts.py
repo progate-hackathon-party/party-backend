@@ -7,7 +7,7 @@ from lib.db import PostModel,Post
 def get_posts():
     try:
         posts = PostModel.scan()
-        return {"posts": [post.content for post in posts]}
+        return {"posts": [post for post in posts]}
     except:
         return {"Error":"Posts not found"}
 
@@ -33,11 +33,14 @@ def get_posts_by_location(location:PostLocation):
         results = []
 
         for item in PostModel.scan():
+            
             if location.lat[0] <= item.lat <= location.lat[1] and location.lon[0] <= item.lon <= location.lon[1]:
                 results.append(item)
+        
 
         return {"posts": results}
-    except:
+    except Exception as e:
+        print(e)
         return {"Error":"Posts not found"}
 
 

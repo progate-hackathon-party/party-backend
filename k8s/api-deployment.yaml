@@ -16,6 +16,27 @@ spec:
     spec:
       containers:
       - name: party-api-app
-        image: public.ecr.aws/w0l1g3z0/progate-hackthon-party/api:latest
+        image: public.ecr.aws/w0l1g3z0/progate-hackthon-party/api:0.0.4
         ports:
         - containerPort: 3000
+        env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: party-secret
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: party-secret
+                  key: AWS_DEFAULT_REGION
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: party-secret
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: party-secret
+                  key: AWS_SESSION_TOKEN
